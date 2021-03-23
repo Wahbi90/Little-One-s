@@ -44,8 +44,8 @@ export class StudentsService {
   }
 
   async getSingleStudent(studentId: string) {
-        const singleStudent = await this.findStudent(studentId)
-        return singleStudent
+    const singleStudent = await this.findStudent(studentId);
+    return singleStudent;
   }
 
   private async findStudent(id: string): Promise<Student> {
@@ -53,6 +53,40 @@ export class StudentsService {
     if (!student) {
       throw new NotFoundException('Could not find student');
     }
-    return student
+    return student;
+  }
+
+  async updateStudent(
+    studentId: string,
+    FirstName: string,
+    LastName: string,
+    age: number,
+    Gender: string,
+    image: string
+  ){
+    const updateStudent = await this.findStudent(studentId);
+    if (FirstName){
+      updateStudent.FirstName = FirstName
+    }
+    if (LastName){
+      updateStudent.LastName = LastName
+    }
+    if (age){
+      updateStudent.age = age
+    }
+    if (Gender){
+      updateStudent.Gender = Gender
+    }
+    if (image){
+      updateStudent.image = image
+    }
+    updateStudent.save()
+  }
+
+  async deleteStudent (studentId: string) {
+    const result = await this.studentModel.deleteOne({_id: studentId});
+             if (result.n === 0){
+           throw new NotFoundException('Could Not Found The Student')
+             }
   }
 }
