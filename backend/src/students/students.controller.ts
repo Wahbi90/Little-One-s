@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 
 import { StudentsService } from './students.service';
@@ -47,7 +48,7 @@ export class StudentController {
     return signleStudent;
   }
 
-  @Patch(':id')
+  @Put(':id')
   async updateProduct(
     @Param('id') studentId: string,
     @Body('FirstName') StudFirstName: string,
