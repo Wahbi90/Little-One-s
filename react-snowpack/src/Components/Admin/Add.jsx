@@ -45,7 +45,7 @@ const handelClick = () => {
     .post("http://localhost:3000/students/", obj)
     .then((response) => {
       console.log(response, "hakuna matata");
-    })
+    },location.reload())
     .catch((err) => {
       console.log(err);
     });

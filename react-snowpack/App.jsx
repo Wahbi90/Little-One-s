@@ -7,6 +7,7 @@ const App = () => {
     <div>
       <Add />
       <Student />
+
     </div>
   );
 };
