@@ -43,6 +43,31 @@ export class StudentsService {
     }));
   }
 
+  // async getSearchedStudent(Search: string) {
+  //   let StudentList;
+  //   try{
+  //     if(Search === null || Search.length === 0){
+  //       StudentList = await this.studentModel.find().exec()
+  //     }else{
+  //       StudentList = await this.studentModel.find({FirstName: Search}).exec()
+  //     }
+  //   }catch(error) {
+  //       throw new NotFoundException('Name do not exist')
+  //   }
+  //   if (!StudentList) {
+  //     throw new NotFoundException('Could not find Student.');
+  //   }
+    
+  //   return StudentList.map((el) => ({
+  //     id: el.id,
+  //     FirstName: el.FirstName,
+  //     LastName: el.LastName,
+  //     age: el.age,
+  //     Gender: el.Gender,
+  //     image: el.image,
+  //   }));
+  // }
+
   async getSingleStudent(studentId: string) {
     const singleStudent = await this.findStudent(studentId);
     return singleStudent;

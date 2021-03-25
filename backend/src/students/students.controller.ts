@@ -48,6 +48,14 @@ export class StudentController {
     return signleStudent;
   }
 
+  // @Get('Search')
+  // async getSearchedStudent(@Param('Search') studentFirstName: string) {
+  //   const searchedStudent = await this.StudentsService.getSearchedStudent(
+  //     studentFirstName,
+  //   );
+  //   return searchedStudent;
+  // }
+
   @Put(':id')
   async updateProduct(
     @Param('id') studentId: string,
@@ -68,10 +76,10 @@ export class StudentController {
     return null;
   }
 
-      @Delete(':id')
-      async removeStudent(@Param('id') studentId: string) {
-         await this.StudentsService.deleteStudent(studentId);
+  @Delete(':id')
+  async removeStudent(@Param('id') studentId: string) {
+    await this.StudentsService.deleteStudent(studentId);
 
-          return null;
-      }
+    return null;
+  }
 }
