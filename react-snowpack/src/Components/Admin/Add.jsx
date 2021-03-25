@@ -57,7 +57,7 @@ const Add = () => {
       <br />
       <br />
       <br />
-      <div>
+      <div className="main">
         <h1 className="has-text-centered is-size-2 mb-3">Student INFO</h1>
         <form>
           <input

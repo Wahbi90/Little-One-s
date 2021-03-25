@@ -4,10 +4,9 @@ import Student from "./src/Components/Admin/Student";
 
 const App = () => {
   return (
-    <div>
+    <div class="container-app">
       <Add />
       <Student />
-
     </div>
   );
 };

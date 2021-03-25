@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Card, Col, Space, Row, Button } from "antd";
+import Grid from "antd/lib/card/Grid";
 
 class Student extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Student extends Component {
       isLoading: false,
       isError: false,
       redirect: false,
+      Search: "",
       obj: [],
     };
   }
@@ -26,25 +28,41 @@ class Student extends Component {
       this.setState({ isError: true, isLoading: false });
     }
   }
-  
-  handleUpdate = (e) => {
-    this.state.students["FirstName"] = e.target.value;
-    console.log(this.state.students);
+
+  FirstNameUpdate = (studentId, event) => {
+    let selectedStudent = this.state.students.find(
+      (element) => element.id == studentId
+    );
+    console.log("myStudent", selectedStudent);
+    selectedStudent.FirstName = event.target.value;
+    console.log(this.state.students, "hay ka3bet el students");
   };
-  handleUpdate1 = (e) => {
-    this.state.students["LastName"] = e.target.value;
-    console.log(this.state.students);
+  LastNameUpdate = (studentId, event) => {
+    let selectedStudent = this.state.students.find(
+      (element) => element.id == studentId
+    );
+    console.log("myStudent", selectedStudent);
+    selectedStudent.LastName = event.target.value;
+    console.log(this.state.students, "hay ka3bet el students");
   };
-  handleUpdate2 = (e) => {
-    this.state.students["age"] = e.target.value;
-    console.log(this.state.students);
+  ageUpdate = (studentId, event) => {
+    let selectedStudent = this.state.students.find(
+      (element) => element.id == studentId
+    );
+    console.log("myStudent", selectedStudent);
+    selectedStudent.age = event.target.value;
+    console.log(this.state.students, "hay ka3bet el students");
   };
-  handleUpdate3 = (e) => {
-    this.state.students["Gender"] = e.target.value;
-    console.log(this.state.students);
+  genderUpdate = (studentId, event) => {
+    let selectedStudent = this.state.students.find(
+      (element) => element.id == studentId
+    );
+    console.log("myStudent", selectedStudent);
+    selectedStudent.Gender = event.target.value;
+    console.log(this.state.students, "hay ka3bet el students");
   };
 
-  updateImage = (event) => {
+  updateImage = (studentId, event) => {
     let pic = event.target.files[0];
     console.log(pic);
     var formData = new FormData();
@@ -54,15 +72,39 @@ class Student extends Component {
       .post("https://api.cloudinary.com/v1_1/dgqiognni/image/upload", formData)
       .then((response) => {
         console.log(response.data.url);
-        this.state.students["image"] = response.data.url;
+        let selectedStudent = this.state.students.find(
+          (element) => element.id == studentId
+        );
+        console.log("myStudent", selectedStudent);
+        selectedStudent.image = response.data.url;
       })
       .catch((err) => console.log(err));
   };
 
+  handelsearch = (e) => {
+    this.state.Search = e.target.value;
+    console.log(this.state.Search, "hedhi el search");
+  };
+
+  // confirmSearch = (Search) => {
+  //   axios
+  //     .get("http://localhost:3000/students/"+Search)
+  //     .then((response) => {
+  //       console.log(response, "searched student");
+  //       this.setState({ students: studentsList });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   handelEdit = (e) => {
-    console.log("sending", this.state.students);
+    let selectedStudent = this.state.students.find(
+      (element) => element.id === e
+    );
+    console.log("student", selectedStudent);
     axios
-      .put("http://localhost:3000/students/" + e, this.state.students)
+      .put("http://localhost:3000/students/" + e, selectedStudent)
       .then((response) => {
         console.log(response, "hakuna matata");
       }, location.reload())
@@ -83,12 +125,20 @@ class Student extends Component {
   };
 
   renderTableRows = () => {
-    return this.state.students.map((student) => {
-      return (
-        <div style={{ display:"grid" }}>
-        <Row style={{ marginLeft: 200, marginTop: 100 }} key={student.id}>
-          <Col style={{ paddingLeft: "40px" }} key={student.id} span={4}>
-            <Space size={this.state.size}>
+    return this.state.students
+      // .filter((ele) => {
+      //   if (this.state.Search === "") {
+      //     return ele;
+      //   } else if (
+      //     ele.FirstName.toLowerCase().includes(this.state.Search.toLowerCase())
+      //   ) {
+      //     return ele;
+      //   }
+      // })
+      .map((student) => {
+        return (
+          <Row style={{ marginTop: 100 }} key={student.id} span={4}>
+            <Col style={{ paddingLeft: "20px" }} key={student.id} span={4}>
               <Card
                 hoverable
                 style={{ width: 170 }}
@@ -109,8 +159,9 @@ class Student extends Component {
                 <p> Gender : {student.Gender}</p>
                 <div>
                   <button onClick={this.handelDelete.bind(this, student.id)}>
-                    delete
+                    Delete
                   </button>
+                  <button>Edit</button>
                 </div>
                 <div>
                   <form>
@@ -119,30 +170,33 @@ class Student extends Component {
                       name="FirstName"
                       placeholder="FirstName"
                       label="FirstName"
-                      onChange={this.handleUpdate.bind(this)}
+                      onChange={this.FirstNameUpdate.bind(this, student.id)}
                     />
                     <input
                       type="text"
                       name="LastName"
                       placeholder="LastName"
                       label="LastName"
-                      onChange={this.handleUpdate1.bind(this)}
+                      onChange={this.LastNameUpdate.bind(this, student.id)}
                     />
                     <input
                       type="number"
                       name="age"
                       placeholder="age"
                       label="age"
-                      onChange={this.handleUpdate2.bind(this)}
+                      onChange={this.ageUpdate.bind(this, student.id)}
                     />
                     <input
                       type="text"
                       name="Gender"
                       placeholder="Gender"
                       label="Gender"
-                      onChange={this.handleUpdate3.bind(this)}
+                      onChange={this.genderUpdate.bind(this, student.id)}
                     />
-                    <input type="file" onChange={this.updateImage.bind(this)} />
+                    <input
+                      type="file"
+                      onChange={this.updateImage.bind(this, student.id)}
+                    />
                     <br />
                   </form>
                   <Button
@@ -153,12 +207,10 @@ class Student extends Component {
                   </Button>
                 </div>
               </Card>
-            </Space>
-          </Col>
-        </Row>
-        </div>
-      );
-    });
+            </Col>
+          </Row>
+        );
+      });
   };
 
   render() {
@@ -172,14 +224,30 @@ class Student extends Component {
 
     return students.length > 0 ? (
       <>
-        <div className="container" style={{ zIndex: "1" }}>
+        <div>
           <button>Add Student</button>
         </div>
-        {/*        
-          <thead>
-            <tr>{this.renderTableHeader()}</tr>
-          </thead> */}
-        <div>{this.renderTableRows()}</div>
+        <div>
+          <h4>Search by First Name</h4>
+          <input
+            type="text"
+            name="Search"
+            placeholder="Search"
+            label="Search"
+            onChange={this.handelsearch.bind(this)}
+          />
+          {/* <button onClick={this.confirmSearch.bind(this)}>Search</button> */}
+        </div>
+        <div
+          className="container"
+          style={{
+            zIndex: "1",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          }}
+        >
+          {this.renderTableRows()}
+        </div>
       </>
     ) : (
       <div>No Students</div>
