@@ -81,6 +81,15 @@ class Student extends Component {
       .catch((err) => console.log(err));
   };
 
+  commentUpdate = (studentId, event) => {
+    let selectedStudent = this.state.students.find(
+      (element) => element.id == studentId
+    );
+    console.log("myStudent", selectedStudent);
+    selectedStudent.comment = event.target.value;
+    console.log(this.state.students, "hay ka3bet el students");
+  };
+
   handelsearch = (e) => {
     this.state.Search = e.target.value;
     console.log(this.state.Search, "hedhi el search");
@@ -137,18 +146,23 @@ class Student extends Component {
   // };
 
   renderTableRows = () => {
-    return this.state.students
-      // .filter((ele) => {
-      //   if (this.state.Search === "") {
-      //     return ele;
-      //   } else if (
-      //     ele.FirstName.toLowerCase().includes(this.state.Search.toLowerCase())
-      //   ) {
-      //     return ele;
-      //   }
-      // })
-      .map((student) => {
-        return (
+    const flitredStudent = this.state.students.filter((student) => {
+      if (this.state.Search === "") {
+        return this.state.students;
+      } else if (
+        student.FirstName.toLowerCase().indexOf(
+          this.state.Search.toLowerCase()
+        ) !== -1
+      ) {
+        this.state.students = [];
+        this.state.students.push(student);
+      } else {
+        return null;
+      }
+      return this.state.students;
+    });
+    return flitredStudent.map((student) => {
+      return (
         <Row style={{ marginTop: 100 }} key={student.id} span={4}>
           <Col style={{ paddingLeft: "20px" }} key={student.id} span={4}>
             <Card
@@ -169,6 +183,7 @@ class Student extends Component {
               <p> Last Name : {student.LastName}</p>
               <p> Age : {student.age}</p>
               <p> Gender : {student.Gender}</p>
+              <p> Comment : {student.comment}</p>
               <div>
                 <button onClick={this.handelDelete.bind(this, student.id)}>
                   Delete
@@ -208,6 +223,13 @@ class Student extends Component {
                   <input
                     type="file"
                     onChange={this.updateImage.bind(this, student.id)}
+                  />
+                  <input
+                    type="text"
+                    name="Comment"
+                    placeholder="Comment"
+                    label="Comment"
+                    onChange={this.commentUpdate.bind(this, student.id)}
                   />
                   <br />
                 </form>

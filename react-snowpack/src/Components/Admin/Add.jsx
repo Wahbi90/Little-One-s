@@ -36,10 +36,11 @@ const selectImage = (event) => {
     .catch((err) => console.log(err));
 };
 
-// const handelchange4 = (e) => {
-//     obj['image'] = e.target.value;
-//     console.log(obj);
-//   };
+const handelchange4 = (e) => {
+  obj["comment"] = e.target.value;
+  console.log(obj);
+};
+
 const handelClick = () => {
   axios
     .post("http://localhost:3000/students/", obj)
@@ -88,13 +89,13 @@ const Add = () => {
             label="Gender"
             onChange={handelchange3}
           />
-          {/* <input
+          <input
             type="text"
-            name="image"
-            placeholder="image"
-            label="image"
+            name="comment"
+            placeholder="comment"
+            label="comment"
             onChange={handelchange4}
-          /> */}
+            />
           <input type="file" onChange={selectImage} />
           <br />
           <Button
