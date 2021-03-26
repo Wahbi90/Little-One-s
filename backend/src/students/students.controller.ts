@@ -23,6 +23,7 @@ export class StudentController {
     @Body('age') Studage: number,
     @Body('Gender') StudGender: string,
     @Body('image') Studimage: string,
+    @Body('comment') Studcomment: string,
   ) {
     const generatedId = await this.StudentsService.insertStudent(
       StudFirstName,
@@ -30,6 +31,7 @@ export class StudentController {
       Studage,
       StudGender,
       Studimage,
+      Studcomment,
     );
     return { id: generatedId };
   }
@@ -48,6 +50,7 @@ export class StudentController {
     return signleStudent;
   }
 
+
   // @Get('Search')
   // async getSearchedStudent(@Param('Search') studentFirstName: string) {
   //   const searchedStudent = await this.StudentsService.getSearchedStudent(
@@ -64,6 +67,7 @@ export class StudentController {
     @Body('age') Studage: number,
     @Body('Gender') StudGender: string,
     @Body('image') Studimage: string,
+    @Body('comment') Studcomment: string,
   ) {
     await this.StudentsService.updateStudent(
       studentId,
@@ -72,6 +76,7 @@ export class StudentController {
       Studage,
       StudGender,
       Studimage,
+      Studcomment,
     );
     return null;
   }

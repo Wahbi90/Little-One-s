@@ -18,6 +18,7 @@ export class StudentsService {
     age: number,
     Gender: string,
     image: string,
+    comment: string,
   ) {
     const newStudent = new this.studentModel({
       FirstName: FirstName,
@@ -25,6 +26,7 @@ export class StudentsService {
       age: age,
       Gender: Gender,
       image: image,
+      comment: comment,
     });
     const result = await newStudent.save();
     console.log(result);
@@ -40,6 +42,7 @@ export class StudentsService {
       age: el.age,
       Gender: el.Gender,
       image: el.image,
+      comment: el.comment,
     }));
   }
 
@@ -57,7 +60,7 @@ export class StudentsService {
   //   if (!StudentList) {
   //     throw new NotFoundException('Could not find Student.');
   //   }
-    
+
   //   return StudentList.map((el) => ({
   //     id: el.id,
   //     FirstName: el.FirstName,
@@ -73,6 +76,8 @@ export class StudentsService {
     return singleStudent;
   }
 
+
+
   private async findStudent(id: string): Promise<Student> {
     const student = await this.studentModel.findById(id);
     if (!student) {
@@ -87,31 +92,35 @@ export class StudentsService {
     LastName: string,
     age: number,
     Gender: string,
-    image: string
-  ){
+    image: string,
+    comment: string,
+  ) {
     const updateStudent = await this.findStudent(studentId);
-    if (FirstName){
-      updateStudent.FirstName = FirstName
+    if (FirstName) {
+      updateStudent.FirstName = FirstName;
     }
-    if (LastName){
-      updateStudent.LastName = LastName
+    if (LastName) {
+      updateStudent.LastName = LastName;
     }
-    if (age){
-      updateStudent.age = age
+    if (age) {
+      updateStudent.age = age;
     }
-    if (Gender){
-      updateStudent.Gender = Gender
+    if (Gender) {
+      updateStudent.Gender = Gender;
     }
-    if (image){
-      updateStudent.image = image
+    if (image) {
+      updateStudent.image = image;
     }
-    updateStudent.save()
+    if (comment) {
+      updateStudent.comment = comment;
+    }
+    updateStudent.save();
   }
 
-  async deleteStudent (studentId: string) {
-    const result = await this.studentModel.deleteOne({_id: studentId});
-             if (result.n === 0){
-           throw new NotFoundException('Could Not Found The Student')
-             }
+  async deleteStudent(studentId: string) {
+    const result = await this.studentModel.deleteOne({ _id: studentId });
+    if (result.n === 0) {
+      throw new NotFoundException('Could Not Found The Student');
+    }
   }
 }

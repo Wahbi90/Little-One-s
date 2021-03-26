@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { type } from 'node:os';
 
 export const StudentSchema = new mongoose.Schema({
   FirstName: { type: String, required: true },
@@ -6,6 +7,7 @@ export const StudentSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   Gender: { type: String, required: true },
   image: { type: String, required: true },
+  comment: {type:String}
 });
 
 export interface Student extends mongoose.Document {
@@ -15,4 +17,5 @@ export interface Student extends mongoose.Document {
   age: number;
   Gender: string;
   image: string;
+  comment: string
 }
