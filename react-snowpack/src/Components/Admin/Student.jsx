@@ -84,6 +84,7 @@ class Student extends Component {
   handelsearch = (e) => {
     this.state.Search = e.target.value;
     console.log(this.state.Search, "hedhi el search");
+    this.renderTableRows();
   };
 
   // confirmSearch = (Search) => {
@@ -124,6 +125,17 @@ class Student extends Component {
       .catch((err) => console.log(err, "from server"));
   };
 
+  // filterStudents = () => {
+  //   this.state.students.filter((ele) => {
+  //     console.log("-------ele---", ele, this.state.Search);
+  //     if (ele.FirstName == this.state.Search) {
+  //       this.state.obj.push(ele);
+  //     }
+  //   });
+  //   console.log("----------------------OBJ", this.state.obj);
+  //   return this.state.obj;
+  // };
+
   renderTableRows = () => {
     return this.state.students
       // .filter((ele) => {
@@ -137,80 +149,80 @@ class Student extends Component {
       // })
       .map((student) => {
         return (
-          <Row style={{ marginTop: 100 }} key={student.id} span={4}>
-            <Col style={{ paddingLeft: "20px" }} key={student.id} span={4}>
-              <Card
-                hoverable
-                style={{ width: 170 }}
-                cover={
-                  <img
-                    alt="example"
-                    src={student.image}
-                    style={{ height: "170px", width: "300px" }}
+        <Row style={{ marginTop: 100 }} key={student.id} span={4}>
+          <Col style={{ paddingLeft: "20px" }} key={student.id} span={4}>
+            <Card
+              hoverable
+              style={{ width: 170 }}
+              cover={
+                <img
+                  alt="example"
+                  src={student.image}
+                  style={{ height: "170px", width: "300px" }}
+                />
+              }
+              title="Personal information"
+              extra={<a href="#">More</a>}
+              style={{ width: 300 }}
+            >
+              <p> First Name : {student.FirstName}</p>
+              <p> Last Name : {student.LastName}</p>
+              <p> Age : {student.age}</p>
+              <p> Gender : {student.Gender}</p>
+              <div>
+                <button onClick={this.handelDelete.bind(this, student.id)}>
+                  Delete
+                </button>
+                <button>Edit</button>
+              </div>
+              <div>
+                <form>
+                  <input
+                    type="text"
+                    name="FirstName"
+                    placeholder="FirstName"
+                    label="FirstName"
+                    onChange={this.FirstNameUpdate.bind(this, student.id)}
                   />
-                }
-                title="Personal information"
-                extra={<a href="#">More</a>}
-                style={{ width: 300 }}
-              >
-                <p> First Name : {student.FirstName}</p>
-                <p> Last Name : {student.LastName}</p>
-                <p> Age : {student.age}</p>
-                <p> Gender : {student.Gender}</p>
-                <div>
-                  <button onClick={this.handelDelete.bind(this, student.id)}>
-                    Delete
-                  </button>
-                  <button>Edit</button>
-                </div>
-                <div>
-                  <form>
-                    <input
-                      type="text"
-                      name="FirstName"
-                      placeholder="FirstName"
-                      label="FirstName"
-                      onChange={this.FirstNameUpdate.bind(this, student.id)}
-                    />
-                    <input
-                      type="text"
-                      name="LastName"
-                      placeholder="LastName"
-                      label="LastName"
-                      onChange={this.LastNameUpdate.bind(this, student.id)}
-                    />
-                    <input
-                      type="number"
-                      name="age"
-                      placeholder="age"
-                      label="age"
-                      onChange={this.ageUpdate.bind(this, student.id)}
-                    />
-                    <input
-                      type="text"
-                      name="Gender"
-                      placeholder="Gender"
-                      label="Gender"
-                      onChange={this.genderUpdate.bind(this, student.id)}
-                    />
-                    <input
-                      type="file"
-                      onChange={this.updateImage.bind(this, student.id)}
-                    />
-                    <br />
-                  </form>
-                  <Button
-                    className="is-primary is-fullwidth mt-5"
-                    onClick={this.handelEdit.bind(this, student.id)}
-                  >
-                    confirm
-                  </Button>
-                </div>
-              </Card>
-            </Col>
-          </Row>
-        );
-      });
+                  <input
+                    type="text"
+                    name="LastName"
+                    placeholder="LastName"
+                    label="LastName"
+                    onChange={this.LastNameUpdate.bind(this, student.id)}
+                  />
+                  <input
+                    type="number"
+                    name="age"
+                    placeholder="age"
+                    label="age"
+                    onChange={this.ageUpdate.bind(this, student.id)}
+                  />
+                  <input
+                    type="text"
+                    name="Gender"
+                    placeholder="Gender"
+                    label="Gender"
+                    onChange={this.genderUpdate.bind(this, student.id)}
+                  />
+                  <input
+                    type="file"
+                    onChange={this.updateImage.bind(this, student.id)}
+                  />
+                  <br />
+                </form>
+                <Button
+                  className="is-primary is-fullwidth mt-5"
+                  onClick={this.handelEdit.bind(this, student.id)}
+                >
+                  confirm
+                </Button>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      );
+    });
   };
 
   render() {
