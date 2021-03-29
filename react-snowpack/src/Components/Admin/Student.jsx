@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Card, Col, Space, Row, Button } from "antd";
 import Grid from "antd/lib/card/Grid";
+import PopUp from "../PopUp";
 
 class Student extends Component {
   constructor(props) {
