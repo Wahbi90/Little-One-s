@@ -2,6 +2,9 @@ import React, { useState } from "react";
 // import { Button } from "antd";
 import axios from "axios";
 import Drawer from "react-drag-drawer";
+import "./Add.css";
+import Input from "../UI/Input";
+import Button from "../UI/Button";
 
 const Add = () => {
   const [toggle, setToggle] = useState(false);
@@ -86,58 +89,61 @@ const Add = () => {
           <br />
           <br />
           <div className="main">
-            <h1 className="has-text-centered is-size-2 mb-3">Student INFO</h1>
+            <h1 className="has-text-centered is-size-2 mb-3" style={{ color: "white" }}>Student INFO</h1>
             <form>
-              <input
-                type="text"
-                name="FirstName"
-                placeholder="FirstName"
-                label="FirstName"
-                onChange={handelchange}
-              />
-              <input
-                type="text"
-                name="LastName"
-                placeholder="LastName"
-                label="LastName"
-                onChange={handelchange1}
-              />
-              <input
-                type="number"
-                name="age"
-                placeholder="age"
-                label="age"
-                onChange={handelchange2}
-              />
-              <input
-                type="text"
-                name="Gender"
-                placeholder="Gender"
-                label="Gender"
-                onChange={handelchange3}
-              />
-              <input
-                type="text"
-                name="comment"
-                placeholder="comment"
-                label="comment"
-                onChange={handelchange4}
-              />
-              <input type="file" onChange={selectImage} />
-              <br />
-              <button
-                className="is-primary is-fullwidth mt-5"
-                onClick={handelClick}
-              >
-                Submit
-              </button>
+              <div style={{ color: "white" }}>
+                <Input
+                  type="text"
+                  name="FirstName"
+                  placeholder="FirstName"
+                  label="FirstName"
+                  onChange={handelchange}
+                />
+                <Input
+                  type="text"
+                  name="LastName"
+                  placeholder="LastName"
+                  label="LastName"
+                  onChange={handelchange1}
+                />
+                <Input
+                  type="number"
+                  name="age"
+                  placeholder="age"
+                  label="age"
+                  onChange={handelchange2}
+                />
+                <Input
+                  type="text"
+                  name="Gender"
+                  placeholder="Gender"
+                  label="Gender"
+                  onChange={handelchange3}
+                />
+                <Input
+                  type="text"
+                  name="comment"
+                  placeholder="comment"
+                  label="comment"
+                  onChange={handelchange4}
+                />
+                <input type="file" onChange={selectImage} />
+                <br />
+                <Button
+                  text={"Submit"}
+                  className="is-primary is-fullwidth mt-5"
+                  onClick={handelClick}
+                />
+              </div>
             </form>
           </div>
         </div>
 
-        <button onClick={Close}>
-          <span>Close</span>
-        </button>
+        <Button
+          text={"Close"}
+          className="is-primary is-fullwidth mt-5"
+          onClick={Close}
+        />
       </Drawer>
     </button>
   );

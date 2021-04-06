@@ -1,6 +1,6 @@
 import React, { FC, useState, FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from "axios";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import Message from "../UI/Message";
@@ -38,6 +38,21 @@ const SignUp: FC = () => {
         () => setLoading(false)
       )
     );
+    axios
+      .post("http://localhost:4000/User", {
+        email,
+        password,
+        firstName,
+        phoneNumber,
+        userType,
+        gender,
+      })
+      .then((response) => {
+        console.log(response, "hakuna matata");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
